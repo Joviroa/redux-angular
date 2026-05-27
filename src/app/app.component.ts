@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { IListaComprasItem } from './store/lista-compras.state';
+import { select, Store } from '@ngrx/store';
+import { getListaCompras } from './store/lista-compras.selectors';
 
 @Component({
   selector: 'app-root',
@@ -7,17 +10,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'redux-angular';
-  ingredientes = [
-    { nome: 'Arroz', quantidade: 1 },
-    { nome: 'Feijão', quantidade: 2 },
-    { nome: 'Carne', quantidade: 3 }
-  ];
 
-  onIngredienteAdicionado(ingrediente: { nome: string; quantidade: number }) {
-    this.ingredientes.push(ingrediente);
+  constructor(private store: Store) { }
+
+  ingredientes$ = this.store.pipe(select(getListaCompras));
+
+  onIngredienteAdicionado(ingrediente: IListaComprasItem) {
+    // this.ingredientes.push(ingrediente);
   }
 
-  onIngredienteRemovido(ingrediente: { nome: string; quantidade: number }) {
-    this.ingredientes = this.ingredientes.filter(i => i !== ingrediente);
-  }
 }

@@ -2,5 +2,5 @@
 <div class="container">
   <h1>App lista de compras</h1>
   <app-adicionar-ingrediente (ingredienteAdicionado)="onIngredienteAdicionado($event)"/>
-  <app-lista-compras [ingredientes]="ingredientes" (ingredienteRemovido)="onIngredienteRemovido($event)"/>
+  <app-lista-compras *ngIf="ingredientes$ | async as ingredientes" [ingredientes]="ingredientes" />
 </div>
