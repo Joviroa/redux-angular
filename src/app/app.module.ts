@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { listaComprasReducer } from './store/lista-compras.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { ListaComprasEffects } from './store/lista-compras.effects';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreDevtoolsModule.instrument({ 
       maxAge: 25, // Define o número máximo de estados a serem armazenados no DevTools
       logOnly: !isDevMode() }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+    EffectsModule.forRoot([ListaComprasEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

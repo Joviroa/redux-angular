@@ -1,7 +1,7 @@
 <ul>
-  <li *ngFor="let ingrediente of ingredientes">
+  <li *ngFor="let ingrediente of (ingredientes$ | async)">
     <span>{{ ingrediente.nome }}</span> - 
     <span>{{ ingrediente.quantidade }}</span>
-    <button (click)="removerIngrediente(ingrediente)">Remover</button>
+    <button>Remover</button>
   </li>
 </ul>

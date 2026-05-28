@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { carregarListaCompras } from '../store/lista-compras.action';
-import { IListaComprasItem } from '../store/lista-compras.state';
+import { getListaCompras } from '../store/lista-compras.selectors';
 
 @Component({
   selector: 'app-lista-compras',
@@ -9,16 +9,14 @@ import { IListaComprasItem } from '../store/lista-compras.state';
   styleUrls: ['./lista-compras.component.css']
 })
 export class ListaComprasComponent implements OnInit {
-  @Input() ingredientes?: IListaComprasItem[];
-  @Output() ingredienteRemovido = new EventEmitter<IListaComprasItem>();
-
   constructor(private store: Store) { }
+  
+  ingredientes$ = this.store.pipe(
+    select(getListaCompras)
+  );
 
   ngOnInit() {
     this.store.dispatch(carregarListaCompras());
   }
-
-  removerIngrediente(ingrediente: IListaComprasItem) {
-    this.ingredienteRemovido.emit(ingrediente);
-  }
 }
+
