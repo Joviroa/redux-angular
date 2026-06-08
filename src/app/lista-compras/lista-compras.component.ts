@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { carregarListaCompras } from '../store/lista-compras.action';
+import { carregarListaCompras, removerItem } from '../store/lista-compras.action';
 import { getListaCompras } from '../store/lista-compras.selectors';
 
 @Component({
@@ -17,6 +17,10 @@ export class ListaComprasComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(carregarListaCompras());
+  }
+
+  removerIngrediente(id: number) {
+    this.store.dispatch(removerItem({ id }));
   }
 }
 

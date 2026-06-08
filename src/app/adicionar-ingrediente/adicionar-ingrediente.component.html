@@ -1,5 +1,5 @@
-<form (ngSubmit)="adicionarIngrediente()">
-  <input type="text" placeholder="Nome do ingrediente" [(ngModel)]="nomeIngrediente" name="nomeIngrediente">
-  <input type="number" placeholder="Quantidade" [(ngModel)]="quantidadeIngrediente" name="quantidadeIngrediente">
-  <button type="submit">Adicionar</button>
+<form [formGroup]="form" (ngSubmit)="adicionarIngrediente()">
+  <input type="text" placeholder="Nome do ingrediente" formControlName="nome">
+  <input type="number" placeholder="Quantidade" formControlName="quantidade">
+  <button type="submit" [disabled]="form.invalid">Adicionar</button>
 </form>

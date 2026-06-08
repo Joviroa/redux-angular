@@ -2,6 +2,7 @@
   <li *ngFor="let ingrediente of (ingredientes$ | async)">
     <span>{{ ingrediente.nome }}</span> - 
     <span>{{ ingrediente.quantidade }}</span>
-    <button>Remover</button>
+    <button [disabled]="!ingrediente.id" (click)="removerIngrediente(ingrediente.id!)">Remover</button>
   </li>
 </ul>
+<span *ngIf="(ingredientes$ | async)?.length === 0">Nenhum ingrediente adicionado.</span>

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListaComprasComponent } from './lista-compras/lista-compras.component';
 import { AdicionarIngredienteComponent } from './adicionar-ingrediente/adicionar-ingrediente.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { listaComprasReducer } from './store/lista-compras.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -22,6 +22,7 @@ import { ListaComprasEffects } from './store/lista-compras.effects';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({
       listaCompras: listaComprasReducer,
     }, {}),

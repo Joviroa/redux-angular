@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { IListaComprasItem } from '../store/lista-compras.state';
+import { Store } from '@ngrx/store';
+import { adicionarItem } from '../store/lista-compras.action';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-adicionar-ingrediente',
@@ -8,19 +11,25 @@ import { IListaComprasItem } from '../store/lista-compras.state';
 })
 export class AdicionarIngredienteComponent {
 
-  @Output() ingredienteAdicionado = new EventEmitter<IListaComprasItem>();
+  constructor(private fb: UntypedFormBuilder, private store: Store) { }
 
-  nomeIngrediente = '';
-  quantidadeIngrediente = 0;
+  form: UntypedFormGroup = this.fb.group({
+    nome: ['', Validators.required],
+    quantidade: [0, [Validators.required, Validators.min(1)]]
+  });
 
   adicionarIngrediente() {
-    console.log(this.nomeIngrediente, this.quantidadeIngrediente);
-    if (this.nomeIngrediente == '' || this.quantidadeIngrediente <= 0) {
-      throw new Error('Ingrediente inválido.');
+    console.log('Adicionando ingrediente:', this.form.value.nome, this.form.value.quantidade);
+    if(this.form.invalid) {
+      return;
     }
-    this.ingredienteAdicionado.emit({ id: Date.now(), nome: this.nomeIngrediente, quantidade: this.quantidadeIngrediente });
-    this.nomeIngrediente = '';
-    this.quantidadeIngrediente = 0;
+    this.store.dispatch(adicionarItem({
+      item: {
+        nome: this.form.value.nome,
+        quantidade: this.form.value.quantidade
+      }
+    }));
+    this.form.reset();
   }
 
 }
